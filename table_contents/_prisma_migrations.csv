@@ -1,0 +1,2 @@
+id,checksum,finished_at,migration_name,logs,rolled_back_at,started_at,applied_steps_count
+c9eb889d-7ed3-46d3-a1d8-6f25944010dd,b195ca6f96d2a2686583b13e9b638fca3402273335c7a7bcef0fcc27131eee82,2024-06-14 00:45:48.769,20240614004529_testing,,,2024-06-14 00:45:45.429,1
