@@ -24,7 +24,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const trainerId = parseInt(id as string);
 
   try {
-    // Fetch the trainer with Pokémon, their moves, and types
     const trainerResult = await db
       .select({
         trainer: Trainer,
@@ -49,7 +48,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(404).json({ error: "Trainer not found" });
     }
 
-    // Process and format the results
     const trainer = trainerResult.reduce(
       (acc, row) => {
         if (!acc.id) {
@@ -96,7 +94,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res.status(200).json(trainer);
   } catch (err) {
-    // handleError(err, res);
     return res.status(500).json(err);
   }
 };

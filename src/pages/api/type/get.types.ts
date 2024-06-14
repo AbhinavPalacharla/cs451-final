@@ -5,7 +5,6 @@ import { handleError } from "@/utils/handleError";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    // Fetch all types
     const types = await db.select().from(Type).execute();
 
     return res.status(200).json(types);

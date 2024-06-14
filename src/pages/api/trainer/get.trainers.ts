@@ -6,7 +6,6 @@ import { handleError } from "@/utils/handleError";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    // Fetch trainers and their associated Pokémon
     const trainerResults = await db
       .select({
         trainer: Trainer,
@@ -17,7 +16,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       .leftJoin(Pokemon, eq(_PokemonToTrainer.A, Pokemon.id))
       .execute();
 
-    // Process and format the results
     const trainers = trainerResults.reduce((acc, row) => {
       let trainer = acc.find((t) => t.id === row.trainer.id);
       if (!trainer) {

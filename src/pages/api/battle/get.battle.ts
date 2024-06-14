@@ -22,7 +22,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const battleId = parseInt(id as string);
 
-    // Fetch the winner details
     const winnerResult = await db
       .select({
         winner: Trainer,
@@ -32,7 +31,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       .where(eq(Battle.id, battleId))
       .execute();
 
-    // Fetch the battle details along with trainers, Pokémon, and items
     const battleResult = await db
       .select({
         battle: Battle,
@@ -54,12 +52,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(404).json({ error: "Battle not found" });
     }
 
-    // Extract the winner information
     const winner = winnerResult.length ? winnerResult[0].winner : null;
 
-    // Process and format the results
     const battle = battleResult.reduce(
-      (acc, row) => {
+      (acc: any, row: any) => {
         if (!acc.id) {
           acc = { ...row.battle, winner, trainers: [] };
         }

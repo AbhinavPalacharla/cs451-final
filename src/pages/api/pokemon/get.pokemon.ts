@@ -22,7 +22,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const pokemonId = parseInt(id as string);
 
-    // Fetch the Pokémon details with their types
     const pokemonWithTypes = await db
       .select({
         pokemon: Pokemon,
@@ -34,7 +33,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       .where(eq(Pokemon.id, pokemonId))
       .execute();
 
-    // Fetch the Pokémon moves with their types
     const pokemonMovesWithTypes = await db
       .select({
         pokemon: Pokemon,
@@ -53,7 +51,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(404).json({ error: "Pokémon not found" });
     }
 
-    // Process and format the results
     const pokemon = pokemonWithTypes.reduce(
       (acc, row) => {
         if (!acc.id) {

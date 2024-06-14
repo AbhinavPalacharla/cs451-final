@@ -6,7 +6,6 @@ import { handleError } from "@/utils/handleError";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    // Fetch all battles
     const battles = await db
       .select({
         battle: Battle,
@@ -21,10 +20,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(404).json({ error: "No battles found" });
     }
 
-    // Extract unique battle IDs
     const battleIds = Array.from(new Set(battles.map((b) => b.battle.id)));
 
-    // Fetch winners separately to avoid conflicts in joins
     const winners = await db
       .select({
         winner: Trainer,
@@ -34,7 +31,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       .where(inArray(Battle.id, battleIds))
       .execute();
 
-    // Process and format the results
     const result = battleIds.map((battleId) => {
       const battleData = battles.filter((b) => b.battle.id === battleId);
       const winnerData = winners.find(
